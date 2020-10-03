@@ -24,7 +24,7 @@ const client = new MongoClient(uri, {
 });
 
 client.connect((err) => {
-  const charitry = client.db("volunterr").collection("items");
+  const charitry = client.db("mamarede").collection("products");
 
   //data posted || addData codes start
 
@@ -48,6 +48,11 @@ client.connect((err) => {
   //reding code end
 
   //delet codes
+  app.delete("/delete/:id", (req, res) => {
+    charitry.deleteOne({ _id: ObjectId(req.params.id) }).then((result) => {
+      res.send(result.deletedCount > 0);
+    });
+  });
 });
 
 app.listen(process.env.PORT || port);
