@@ -12,6 +12,12 @@ app.use(bodyParser.json());
 
 const port = 5000;
 
+//root get the
+
+app.get("/", (req, res) => {
+  res.send("Db Working ....");
+});
+
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -40,10 +46,6 @@ client.connect((err) => {
   });
 
   //reding code end
-});
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
 });
 
 app.listen(process.env.PORT || port);
