@@ -25,7 +25,7 @@ const client = new MongoClient(uri, {
 
 client.connect((err) => {
   const charitry = client.db("volunterr").collection("items");
-
+  const productsCollection = client.db("emaJhonStore").collection("products");
   //data posted || addData codes start
 
   app.post("/addItem", (req, res) => {
@@ -39,12 +39,18 @@ client.connect((err) => {
 
   //data read code start
   app.get("/items", (req, res) => {
-    charitry
+    productsCollection
       .find({})
       .limit(10)
       .toArray((err, documents) => {
         res.send(documents);
       });
+  });
+
+  app.get("/itemss", (req, res) => {
+    charitry.find({}).toArray((err, documents) => {
+      res.send(documents);
+    });
   });
 
   //reding code end
