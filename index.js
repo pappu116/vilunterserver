@@ -41,12 +41,7 @@ client.connect((err) => {
 
   app.get("/items", (req, res) => {
     charitry.find({ email: req.query.email }).toArray((err, documents) => {
-      const person = {
-        isHuman: "Yes",
-        data: documents,
-      };
-
-      res.send(person);
+      res.send(documents);
     });
   });
 
