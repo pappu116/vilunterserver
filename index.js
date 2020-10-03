@@ -39,7 +39,7 @@ client.connect((err) => {
 
   //data read code start
 
-  app.get("/item", (req, res) => {
+  app.get("/items", (req, res) => {
     charitry.find({ email: req.query.email }).toArray((err, document) => {
       res.send(document);
     });
