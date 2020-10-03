@@ -38,14 +38,25 @@ client.connect((err) => {
   //Data posted code End
 
   //data read code start
-
   app.get("/items", (req, res) => {
-    charitry.find({ email: req.query.email }).toArray((err, document) => {
-      res.send(document);
-    });
+    charitry
+      .find({})
+      .limit(10)
+      .toArray((err, documents) => {
+        res.send(documents);
+      });
   });
 
   //reding code end
+
+  //delet codes
+
+  //   app.delete("/delete", (req, res) => {
+  //     console.log("Delet Dome");
+  //     // charitry.deleteOne({ _id: ObjectId(req.params.id) }).then((result) => {
+  //     //   res.send(result.deletedCount > 0);
+  //     // });
+  //   });
 });
 
 app.listen(process.env.PORT || port);
