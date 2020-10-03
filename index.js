@@ -25,7 +25,7 @@ const client = new MongoClient(uri, {
 
 client.connect((err) => {
   const charitry = client.db("volunterr").collection("items");
-  const productsCollection = client.db("emaJhonStore").collection("products");
+
   //data posted || addData codes start
 
   app.post("/addItem", (req, res) => {
@@ -38,31 +38,21 @@ client.connect((err) => {
   //Data posted code End
 
   //data read code start
-  app.get("/items", (req, res) => {
-    productsCollection
-      .find({})
-      .limit(10)
-      .toArray((err, documents) => {
-        res.send(documents);
-      });
-  });
 
-  app.get("/itemss", (req, res) => {
-    charitry.find({}).toArray((err, documents) => {
-      res.send(documents);
+  app.get("/items", (req, res) => {
+    charitry.find({ email: req.query.email }).toArray((err, documents) => {
+      const person = {
+        isHuman: "Yes",
+        data: documents,
+      };
+
+      res.send(person);
     });
   });
 
   //reding code end
 
   //delet codes
-
-  //   app.delete("/delete", (req, res) => {
-  //     console.log("Delet Dome");
-  //     // charitry.deleteOne({ _id: ObjectId(req.params.id) }).then((result) => {
-  //     //   res.send(result.deletedCount > 0);
-  //     // });
-  //   });
 });
 
 app.listen(process.env.PORT || port);
