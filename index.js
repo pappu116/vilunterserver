@@ -40,7 +40,7 @@ client.connect((err) => {
 
   //data  dedicated user  read code start
 
-  app.get("/orderItem", (req, res) => {
+  app.get("/userSelf", (req, res) => {
     volunterrUser.find({ email: req.query.email }).toArray((err, documents) => {
       res.send(documents);
     });
