@@ -34,7 +34,7 @@ client.connect((err) => {
   app.post("/addItem", (req, res) => {
     const newItem = req.body;
     volunterrUser.insertOne(newItem).then((result) => {
-      res.redirect("/event");
+      res.send(result.insertedCount > 0);
     });
     console.log(newItem);
   });
@@ -94,7 +94,7 @@ client.connect((err) => {
   app.delete("/delete/:email", (req, res) => {
     console.log(req.params.email);
     volunterrUser.deleteOne({ email: req.params.email }).then((result) => {
-      res.redirect("http://localhost:3000/tabel");
+      res.send(result.deletedCount > 0);
     });
   });
 
