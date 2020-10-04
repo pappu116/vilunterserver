@@ -25,34 +25,54 @@ const client = new MongoClient(uri, {
 
 client.connect((err) => {
   const charitry = client.db("mamarede").collection("products");
+  const volunterrUser = client.db("mamarede").collection("users");
 
   //data posted || addData codes start
 
   app.post("/addItem", (req, res) => {
     const newItem = req.body;
-    charitry.insertOne(newItem).then((result) => {
-      res.send(result.insertedCount > 0);
+    volunterrUser.insertOne(newItem).then((result) => {
+      res.redirect("/event");
     });
     console.log(newItem);
   });
   //Data posted code End
 
-  //data read code start
+  //data  dedicated user  read code start
 
-  app.get("/items", (req, res) => {
-    charitry.find({ email: req.query.email }).toArray((err, documents) => {
+  app.get("/orderItem", (req, res) => {
+    volunterrUser.find({ email: req.query.email }).toArray((err, documents) => {
       res.send(documents);
     });
   });
 
-  //reding code end
+  //data  dedicated user  read code end
+
+  //admin user loded code ||red code
+  app.get("/allUser", (req, res) => {
+    volunterrUser.find({}).toArray((err, documents) => {
+      res.send(documents);
+    });
+  });
+
+  //admin reding code end
+
+  //product loded All read code
+
+  app.get("/items", (req, res) => {
+    charitry.find({}).toArray((err, documents) => {
+      res.send(documents);
+    });
+  });
 
   //delet codes
   app.delete("/delete/:id", (req, res) => {
-    charitry.deleteOne({ _id: ObjectId(req.params.id) }).then((result) => {
+    volunterrUser.deleteOne({ _id: ObjectId(req.params.id) }).then((result) => {
       res.send(result.deletedCount > 0);
     });
   });
+
+  //Delet code End
 });
 
 app.listen(process.env.PORT || port);
