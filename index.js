@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const ObjectId = require("mongodb").ObjectId;
+
 const MongoClient = require("mongodb").MongoClient;
 require("dotenv").config();
 
@@ -36,7 +38,20 @@ client.connect((err) => {
     });
     console.log(newItem);
   });
+
   //Data posted code End
+
+  //admin prodact added to
+
+  app.post("/adminAdded", (req, res) => {
+    const newItem = req.body;
+    charitry.insertOne(newItem).then((result) => {
+      res.send(result.insertedCount > 0);
+    });
+    // console.log(newItem);
+  });
+
+  //admin product added code end
 
   //data  dedicated user  read code start
 
@@ -65,9 +80,20 @@ client.connect((err) => {
     });
   });
 
-  //delet codes
-  app.delete("/delete/:id", (req, res) => {
-    volunterrUser.deleteOne({ _id: ObjectId(req.params.id) }).then((result) => {
+  //delet codes item delet code
+  app.delete("/removed/:id", (req, res) => {
+    console.log(req.params.id);
+    volunterrUser.deleteOne({ id: req.params.id }).then((result) => {
+      res.send(result.deletedCount > 0);
+    });
+  });
+
+  //Delet code End
+
+  //delet user codes
+  app.delete("/delete/:email", (req, res) => {
+    console.log(req.params.email);
+    volunterrUser.deleteOne({ email: req.params.email }).then((result) => {
       res.send(result.deletedCount > 0);
     });
   });
