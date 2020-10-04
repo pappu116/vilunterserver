@@ -83,7 +83,7 @@ client.connect((err) => {
   //delet codes item delet code
   app.delete("/removed/:id", (req, res) => {
     console.log(req.params.id);
-    volunterrUser.deleteOne({ id: req.params.id }).then((result) => {
+    volunterrUser.deleteOne({ _id: ObjectId(req.params.id) }).then((result) => {
       res.send(result.deletedCount > 0);
     });
   });
@@ -94,7 +94,7 @@ client.connect((err) => {
   app.delete("/delete/:email", (req, res) => {
     console.log(req.params.email);
     volunterrUser.deleteOne({ email: req.params.email }).then((result) => {
-      res.send(result.deletedCount > 0);
+      res.redirect("http://localhost:3000/tabel");
     });
   });
 
