@@ -83,7 +83,7 @@ client.connect((err) => {
   //delet codes item delet code
   app.delete("/removed/:id", (req, res) => {
     console.log(req.params.id);
-    volunterrUser.deleteOne({ _id: ObjectId(req.params.id) }).then((result) => {
+    volunterrUser.deleteOne({ _id: req.params.id }).then((result) => {
       res.send(result.deletedCount > 0);
     });
   });
